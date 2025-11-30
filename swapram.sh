@@ -1,164 +1,26 @@
-#!/bin/bash
-# =========================================
-# Quick Setup | Script Setup Manager
-# Edition : Stable Edition V1.0
-# Auther  : NiLphreakz
-# Date    : 22/11/2025
-# (C) Copyright 2025
-# =========================================
+#!/usr/bin/env bash
+# Obfuscated bash script (generated oleh protect_bash.py)
 
-P='\e[0;35m'
-B='\033[0;36m'
-G='\033[0;32m'
-R='\033[0;31m'
-W='\033[1;37m'
-NC='\e[0m'
+python3 - "$@" << 'PY'
+import base64, gzip, os, sys, tempfile, stat, subprocess
 
-# Function Show Current Swap
-showswap() {
-    curr_swap=$(grep -w "/swapfile" /proc/swaps | awk '{print $3}')
-    curr_swap_mb=$((curr_swap / 1024))
+b64_data = """H4sIAJ82LGkC/9VX3W7aShC+91NMXSR+KuNfDA2iEtAkJxdAiqOTiySqjL0GK/6TvYT2cJDOI1SVIh3p3PXR+iRn1hiwG9KkuUmzQoiZnfl25pvd2eX1K3HiBuLETGbca+g8dqDth7lrXYNB6DyCv8GwYjeimTgwA3NKYjQ6tF3qhgEcgEHNiUe2ij/luoTz3TmdkRhwfkhuSOyHMTGMP3DivUkJAJtQFFGWRUVSGqiu9KvQD6PPsTudUciUj4+aO+2UL8mF1FYbfpnroSCpKhN1FI93ooLieCfKKJ5notxWmygO+2sk/IkRHM0DK03LmIUL6M/jmARIxsKMuAQ1Cf6oVGHJsYwsnP3INJ1SZRqTCIQF8CJTOK5HeBCjOLRSOUFezcU1lJdR7CJeSV2Vq0WMj/4EYSpbGUSQJUWrVrnUznXgAvhS3pwHYUpBgqs2IPVBasZGOp1Qk86TDl9aHq+6mNENKS2H/RWfWhEvIfeZj1fDkMIdF8ddx0GsWQgCwVCW56s8PVhftlZpmQ9xBYNeCgKV0jK30KrK79B4nltxHJuNTT8l1/KIGXPbpbA6WNbvt1+/3375DT63683k87sI4fIQd5fWbKuSDz8O47x7CuPuAO4O5pbH2WT67++R6X93M92dHFZ0llXvc+HE/8zljHhkikXGvTKjNEoORJHWfSLS0HbcT7rehLvePDuVtVphq50ETgiV7lnXgOFo0BuNQa7WatsDyuUKc7FZHWn955uc4V8BdG0bGrIy6LHS8Pd6KEWPpt56yEMtesjHD9hrRXvlIftG0V57yF7f2b93k7R1pyQWne73l3b+PRPvCRqCT4J55sDvLfRpTJIEG1afxt6bPlwB4sBZKBx+cqmwvmCKlUaYmJg2CBHwBu4Si8JRHPowilgzZlAyCKAj0gFghKzKcmGPWGZCoJTqwQ04ufpjE7lI29PJ8Gi0bkhXGRtuMIXQs1PIer3Op40odBwQBNPzuNgHwYFtU/8ZXh8zoAwuIItsa21BsVCu0xFtciP+ReIQQhQ2mDBJOqzVgxXOA9ppKJrSanH+9foW2K5szfzQBl2Scro01iCvIMihC2XxcqsT7TKIhFqig713ktG9WzxdJf2yiWPOPZrglSLx8O5d3ivxCN5vyqZLc+02xynPzfH6MD6F42ZL11TlBXCsPjfHrH09hWFZ0lqNpv4CKNaem2LliRQr0tum3HgJu7jx3BRrT6RYk99qqqS9AIr1X6LYeBy9j0xg/2rpIyN7cdiv+L1RS5uo2Ysi1dT25jFeHY7Ho/EG+iS4MT3Xzl4H+7FJYlq5/xXc/ymDppcfDwAA"""
 
-    if [ "$curr_swap_mb" -gt 0 ]; then
-        swap_status="${G}Active${NC}"
-    else
-        swap_status="${R}Not Active${NC}"
-    fi
+data = base64.b64decode(b64_data.encode())
+script = gzip.decompress(data)
 
-    echo -e "${W}Current Swap : ${G}${curr_swap_mb} MB${NC} (${swap_status})"
-    echo ""
-}
+# Tulis ke file sementara
+with tempfile.NamedTemporaryFile(delete=False) as f:
+    f.write(script)
+    tmp_path = f.name
 
-swapram() {
-clear
-echo -e "\e[36m╒════════════════════════════════════════════╕\033[0m"
-echo -e " \E[0;47;30m                 SWAP RAM                   \E[0m"
-echo -e "\e[36m╘════════════════════════════════════════════╛\033[0m"
-echo -e "\033[1;37mSwapRAM By NiLphreakz\033[0m"
-echo -e "\033[1;37mTelegram : https://t.me/NiLphreakz \033[0m"
-echo -e ""
+# Bagi execute permission
+st = os.stat(tmp_path)
+os.chmod(tmp_path, st.st_mode | stat.S_IXUSR)
 
-# **Current Swap Info (ATAS NOMBOR 1)**
-showswap
+# Run script bash asal dengan argumen yang sama
+subprocess.call(["bash", tmp_path] + sys.argv[1:])
 
-echo -e " [\033[1;36m•1\033[0m]  Add 512MB RAM"
-echo -e " [\033[1;36m•2\033[0m]  Add 768MB RAM"
-echo -e " [\033[1;36m•3\033[0m]  Add 1GB RAM"
-echo -e " [\033[1;36m•4\033[0m]  Add 2GB RAM"
-echo -e " [\033[1;36m•5\033[0m]  Add 4GB RAM"
-echo -e " [\033[1;36m•6\033[0m]  Disable Swap RAM"
-echo -e ""
-echo -e " [\033[1;36m•0\033[0m]  Back to menu"
-echo ""
-echo -e "\033[1;37mPress [ Ctrl+C ] • To-Exit-Script\033[0m"
-echo ""
-read -p "Select From Options [ 1 - 6 ] :  " swap1
-echo -e ""
-
-case $swap1 in
-1)
-clear
-echo -e "[ ${G}INFO${NC} ] Disabling old swap..."
-swapoff --all
-rm -f /swapfile
-echo -e "[ ${G}INFO${NC} ] Creating new 512MB swap..."
-dd if=/dev/zero of=/swapfile bs=1024 count=524288
-mkswap /swapfile
-chmod 600 /swapfile
-swapon /swapfile
-sed -i '/\/swapfile/d' /etc/fstab
-echo "/swapfile swap swap defaults 0 0" >> /etc/fstab
-sleep 2
-swapram
-;;
-
-2)
-clear
-echo -e "[ ${G}INFO${NC} ] Disabling old swap..."
-swapoff --all
-rm -f /swapfile
-echo -e "[ ${G}INFO${NC} ] Creating new 768MB swap..."
-dd if=/dev/zero of=/swapfile bs=1024 count=786432
-mkswap /swapfile
-chmod 600 /swapfile
-swapon /swapfile
-sed -i '/\/swapfile/d' /etc/fstab
-echo "/swapfile swap swap defaults 0 0" >> /etc/fstab
-sleep 2
-swapram
-;;
-
-3)
-clear
-echo -e "[ ${G}INFO${NC} ] Disabling old swap..."
-swapoff --all
-rm -f /swapfile
-echo -e "[ ${G}INFO${NC} ] Creating new 1GB swap..."
-dd if=/dev/zero of=/swapfile bs=1024 count=1048576
-mkswap /swapfile
-chmod 600 /swapfile
-swapon /swapfile
-sed -i '/\/swapfile/d' /etc/fstab
-echo "/swapfile swap swap defaults 0 0" >> /etc/fstab
-sleep 2
-swapram
-;;
-
-4)
-clear
-echo -e "[ ${G}INFO${NC} ] Disabling old swap..."
-swapoff --all
-rm -f /swapfile
-echo -e "[ ${G}INFO${NC} ] Creating new 2GB swap..."
-dd if=/dev/zero of=/swapfile bs=1024 count=2097152
-mkswap /swapfile
-chmod 600 /swapfile
-swapon /swapfile
-sed -i '/\/swapfile/d' /etc/fstab
-echo "/swapfile swap swap defaults 0 0" >> /etc/fstab
-sleep 2
-swapram
-;;
-
-5)
-clear
-echo -e "[ ${G}INFO${NC} ] Disabling old swap..."
-swapoff --all
-rm -f /swapfile
-echo -e "[ ${G}INFO${NC} ] Creating new 4GB swap..."
-dd if=/dev/zero of=/swapfile bs=1024 count=4194304
-mkswap /swapfile
-chmod 600 /swapfile
-swapon /swapfile
-sed -i '/\/swapfile/d' /etc/fstab
-echo "/swapfile swap swap defaults 0 0" >> /etc/fstab
-sleep 2
-swapram
-;;
-
-6)
-clear
-echo -e "[ ${G}INFO${NC} ] Disabling Swap..."
-swapoff --all
-rm -f /swapfile
-sed -i '/\/swapfile/d' /etc/fstab
-echo -e "[ ${G}INFO${NC} ] Swap Disabled!"
-sleep 2
-swapram
-;;
-
-0)
-clear
-menu
-;;
-
-*)
-clear
-echo -e "[ ${R}ERROR${NC} ] Invalid Option!"
-sleep 2
-swapram
-;;
-esac
-}
-
-swapram
+# Padam file sementara
+os.remove(tmp_path)
+PY
