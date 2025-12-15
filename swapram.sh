@@ -45,10 +45,10 @@ showswap() {
 swapram() {
 clear
 echo -e "\e[${line}m═══════════════════════════════════${reset}"
-echo -e "  \e[${title}[ CUSTOM SWAP-RAM ]${reset}"
+echo -e "\e[${title}        [ CUSTOM SWAP-RAM ]         ${reset}"
 echo -e "\e[${line}m═══════════════════════════════════${reset}"
-echo -e "\033[1;37mSwapRAM By NevermoreSSH\033[0m"
-echo -e "\033[1;37mTelegram : https://t.me/todfix667 \033[0m"
+echo -e "\033[1;37mSwapRAM By NiLphreakz\033[0m"
+echo -e "\033[1;37mTelegram : https://t.me/NiLphreakz \033[0m"
 echo -e ""
 
 # **Current Swap Info (ATAS NOMBOR 1)**
