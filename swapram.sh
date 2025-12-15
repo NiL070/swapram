@@ -162,12 +162,12 @@ exec swapram
 
 0)
 clear
-exec menu-tweak
+exec menu
 ;;
 
 x)
 clear
-exec menu-tweak
+exec menu
 ;;
 
 *)
